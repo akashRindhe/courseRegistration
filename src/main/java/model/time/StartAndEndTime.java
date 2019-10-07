@@ -36,6 +36,11 @@ public class StartAndEndTime {
         return false;
     }
 
+    /**
+     * Duration of StartAndEndTime object.
+     * EndTime - StartTime
+     * @return
+     */
     public HourAndMinutes duration() {
         return this.startTime.differenceFrom(this.endTime);
     }

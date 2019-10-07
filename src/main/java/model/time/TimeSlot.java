@@ -15,7 +15,7 @@ public class TimeSlot {
     private TimeSlot(DayOfWeek dayOfWeek, StartAndEndTime startAndEndTime) {
         this.dayOfWeek = Objects.requireNonNull(dayOfWeek);
         this.startAndEndTime = Objects.requireNonNull(startAndEndTime);
-        this.stringRepresentation = this.dayOfWeek.toString() + " " + this.startAndEndTime;
+        this.stringRepresentation = this.dayOfWeek + " " + this.startAndEndTime;
     }
 
     public TimeSlot(DayOfWeek dayOfWeek, HourAndMinutes startTime, HourAndMinutes endTime) {
@@ -26,6 +26,11 @@ public class TimeSlot {
         this(dayOfWeek, new HourAndMinutes(startHour, startMinutes), new HourAndMinutes(endHour, endMinutes));
     }
 
+    /**
+     * Method to avoid two classes with clashing slots
+     * @param timeSlot
+     * @return
+     */
     public boolean overlapsWith(TimeSlot timeSlot) {
         return this.dayOfWeek == timeSlot.dayOfWeek && timeSlot.startAndEndTime.overlapsWith(startAndEndTime);
     }

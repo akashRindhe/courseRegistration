@@ -60,12 +60,11 @@ public final class HourAndMinutes implements Comparable{
     /**
      * Gives the time difference between the
      * passed parameter and current time.
-     * Difference is calculated as hourAndMinutes - this.
+     * Assumes parameter hourAndMinutes > this.
      * @param hourAndMinutes
      * @return
      */
     public HourAndMinutes differenceFrom( HourAndMinutes hourAndMinutes ) {
-        //TODO - be able to handle negative durations
         int hourDifference = hourAndMinutes.hour - this.hour;
         int minutesDifference = hourAndMinutes.minutes - this.minutes;
         if (minutesDifference < 0) {

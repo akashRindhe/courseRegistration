@@ -35,7 +35,7 @@ public class Batch {
 
     @Override
     public String toString() {
-        return id +":  Slots Left - " + getFreeSlots();
+        return id +" : Slots Left - " + getFreeSlots();
     }
 
     @Override

@@ -6,6 +6,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -40,17 +41,22 @@ class StartAndEndTimeTest {
     @MethodSource("overlapsWithTestArguments")
     void overlapsWith(HourAndMinutes startTime, HourAndMinutes endTime, boolean expectedResult ) {
         //Arrange
-        StartAndEndTime startAndEndTime = new StartAndEndTime( new HourAndMinutes( 11, 0 ),
+        StartAndEndTime startAndEndTime = new StartAndEndTime(startTime, endTime);
+        StartAndEndTime testSubject = new StartAndEndTime( new HourAndMinutes( 11, 0 ),
                 new HourAndMinutes(12,0) );
 
         //Act and Assert
-        assertEquals(expectedResult, startAndEndTime.overlapsWith( new StartAndEndTime(startTime,endTime) ));
+        assertEquals(expectedResult, testSubject.overlapsWith( startAndEndTime ));
     }
 
     @Test
     void illegalStartAndEndTime() {
-        HourAndMinutes startTime = new HourAndMinutes(10,30);
-        HourAndMinutes endTime = new HourAndMinutes(10, 29);
+        int startHour = ThreadLocalRandom.current().nextInt(1, 24);
+        int endHour = ThreadLocalRandom.current().nextInt(0, startHour);
+        int startMinute = ThreadLocalRandom.current().nextInt(1, 60);
+        int endMinute = ThreadLocalRandom.current().nextInt(0, startMinute);
+        HourAndMinutes startTime = new HourAndMinutes(startHour,startMinute);
+        HourAndMinutes endTime = new HourAndMinutes(endHour, endMinute);
         Assertions.assertThrows(IllegalArgumentException.class, () -> {
             new StartAndEndTime(startTime, endTime);
         });

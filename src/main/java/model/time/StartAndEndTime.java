@@ -20,18 +20,29 @@ public class StartAndEndTime {
         this.stringRepresentation = this.startTime + " - " + this.endTime;
     }
 
+    public HourAndMinutes startTime() {
+        return this.startTime;
+    }
+
+    public HourAndMinutes endTime() {
+        return this.endTime;
+    }
+
     public boolean overlapsWith(StartAndEndTime startAndEndTime) {
+        HourAndMinutes otherStartTime = startAndEndTime.startTime();
+        HourAndMinutes otherEndTime = startAndEndTime.endTime();
+
         // Start and end times are equal
-        if ( startTime.equals(startAndEndTime.startTime) && endTime.equals(startAndEndTime.endTime) )
+        if ( this.startTime.equals(otherStartTime) && this.endTime.equals(otherEndTime) )
             return true;
 
-        if ( startTime.compareTo(startAndEndTime.startTime) > 0 && startTime.compareTo(startAndEndTime.endTime) < 0 )
+        if ( this.startTime.compareTo(otherStartTime) > 0 && this.startTime.compareTo(otherEndTime) < 0 )
             return true;
 
-        if ( endTime.compareTo(startAndEndTime.startTime) > 0 && endTime.compareTo(startAndEndTime.endTime) < 0 )
+        if ( this.endTime.compareTo(otherStartTime) > 0 && this.endTime.compareTo(otherEndTime) < 0 )
             return true;
 
-        if ( startAndEndTime.startTime.compareTo(startTime) > 0 && startAndEndTime.startTime.compareTo(endTime) < 0 )
+        if ( otherStartTime.compareTo(this.startTime) > 0 && otherStartTime.compareTo(this.endTime) < 0 )
             return true;
         return false;
     }

@@ -4,7 +4,7 @@ package model.time;
  * Entity to store hours and minutes - HH:MM in the 24 hour format.
  * Implements comparable for time comparison.
  */
-public final class HourAndMinutes implements Comparable{
+public final class HourAndMinutes implements Comparable<HourAndMinutes>{
     private final int hour;
     private final int minutes;
     private final String stringRepresentation;
@@ -23,11 +23,7 @@ public final class HourAndMinutes implements Comparable{
     }
 
     @Override
-    public int compareTo(Object o) {
-        if (!( o instanceof HourAndMinutes)) {
-            throw new IllegalArgumentException("Invalid comparison");
-        }
-        HourAndMinutes hourAndMinutes = (HourAndMinutes)o;
+    public int compareTo(HourAndMinutes hourAndMinutes) {
         if ( this.hour <  hourAndMinutes.hour || ( this.hour == hourAndMinutes.hour && this.minutes < hourAndMinutes.minutes ) )
             return -1;
         else if (this.hour > hourAndMinutes.hour || this.minutes > hourAndMinutes.minutes)

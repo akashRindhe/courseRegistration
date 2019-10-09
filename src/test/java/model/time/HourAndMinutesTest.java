@@ -13,7 +13,7 @@ import static org.junit.jupiter.params.provider.Arguments.of;
 
 class HourAndMinutesTest {
 
-    private static Stream<Arguments> comparisonTestArguments() {
+    private static Stream<Arguments> compareToArguments() {
         return Stream.of(
                 of(11, 0, -1),
                 of(10,30,0),
@@ -25,8 +25,8 @@ class HourAndMinutesTest {
     }
 
     @ParameterizedTest
-    @MethodSource("comparisonTestArguments")
-    void validComparison( int hours, int minutes, int expectedResult ) {
+    @MethodSource("compareToArguments")
+    void compareTo( int hours, int minutes, int expectedResult ) {
         //Arrange
         HourAndMinutes testSubject = new HourAndMinutes(10,30);
         HourAndMinutes comparisonObject = new HourAndMinutes(hours,minutes);
@@ -38,15 +38,7 @@ class HourAndMinutesTest {
         assertEquals( expectedResult, result );
     }
 
-    @Test
-    void invalidComparison() {
-        HourAndMinutes testSubject = new HourAndMinutes(10,30);
-        Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            testSubject.compareTo(10);
-        });
-    }
-
-    private static Stream<Arguments> equalsTestArguments() {
+    private static Stream<Arguments> equalsArguments() {
         return Stream.of(
                 of(new HourAndMinutes(10, 30), true),
                 of(new HourAndMinutes(10, 29), false),
@@ -56,7 +48,7 @@ class HourAndMinutesTest {
     }
 
     @ParameterizedTest
-    @MethodSource("equalsTestArguments")
+    @MethodSource("equalsArguments")
     void equals( Object o, boolean expectedResult ) {
         //Arrange
         HourAndMinutes hourAndMinutes = new HourAndMinutes(10,30);

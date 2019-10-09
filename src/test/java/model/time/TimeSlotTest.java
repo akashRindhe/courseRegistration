@@ -12,7 +12,7 @@ import static org.junit.jupiter.params.provider.Arguments.of;
 
 class TimeSlotTest {
 
-    private static Stream<Arguments> overlapsWithTestArguments() {
+    private static Stream<Arguments> overlapsWithArguments() {
         return Stream.of(
                 of(DayOfWeek.WEDNESDAY, new HourAndMinutes(10, 30),
                         new HourAndMinutes(11, 30 ), true),
@@ -28,7 +28,7 @@ class TimeSlotTest {
     }
 
     @ParameterizedTest
-    @MethodSource("overlapsWithTestArguments")
+    @MethodSource("overlapsWithArguments")
     void overlapsWith(DayOfWeek dayOfWeek, HourAndMinutes startTime,
                       HourAndMinutes endTime, boolean expectedResult ) {
         //Arrange
@@ -58,4 +58,65 @@ class TimeSlotTest {
         //Act and Assert
         assertEquals( expectedResult, timeSlot.toString() );
     }
+
+    private static Stream<Arguments> compareToArguments() {
+        return Stream.of(
+                of(DayOfWeek.WEDNESDAY,
+                        new HourAndMinutes(10, 30),
+                        new HourAndMinutes(11, 30),
+                        DayOfWeek.THURSDAY,
+                        new HourAndMinutes(10, 30),
+                        new HourAndMinutes(11, 30),
+                        -1),
+                of(DayOfWeek.SUNDAY,
+                        new HourAndMinutes(10, 30),
+                        new HourAndMinutes(11, 30),
+                        DayOfWeek.MONDAY,
+                        new HourAndMinutes(10, 30),
+                        new HourAndMinutes(11, 30),
+                        1),
+                of(DayOfWeek.WEDNESDAY,
+                        new HourAndMinutes(10, 30),
+                        new HourAndMinutes(11, 30),
+                        DayOfWeek.WEDNESDAY,
+                        new HourAndMinutes(10, 31),
+                        new HourAndMinutes(11, 30),
+                        -1),
+                of(DayOfWeek.WEDNESDAY,
+                        new HourAndMinutes(10, 30),
+                        new HourAndMinutes(11, 30),
+                        DayOfWeek.WEDNESDAY,
+                        new HourAndMinutes(10, 29),
+                        new HourAndMinutes(11, 30),
+                        1),
+                of(DayOfWeek.WEDNESDAY,
+                        new HourAndMinutes(10, 30),
+                        new HourAndMinutes(11, 30),
+                        DayOfWeek.WEDNESDAY,
+                        new HourAndMinutes(10, 30),
+                        new HourAndMinutes(11, 30),
+                        0)
+        );
+    }
+
+    @ParameterizedTest
+    @MethodSource("compareToArguments")
+    void compareTo( DayOfWeek firstDayOfWeek,
+                    HourAndMinutes firstStartTime,
+                    HourAndMinutes firstEndTime,
+                    DayOfWeek secondDayOfWeek,
+                    HourAndMinutes secondStartTime,
+                    HourAndMinutes secondEndtime,
+                    int expectedResult ) {
+        //Arrange
+        TimeSlot testSubject = new TimeSlot( firstDayOfWeek, new StartAndEndTime(firstStartTime,firstEndTime));
+        TimeSlot comparisonObject = new TimeSlot(secondDayOfWeek, new StartAndEndTime(secondStartTime,secondEndtime));
+
+        //Act
+        int result = testSubject.compareTo(comparisonObject);
+
+        //Assert
+        assertEquals( expectedResult, result );
+    }
+
 }

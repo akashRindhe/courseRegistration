@@ -5,7 +5,7 @@ import java.util.Objects;
 /**
  * Entity to store start and end times of classes
  */
-public class StartAndEndTime {
+public class StartAndEndTime implements Comparable<StartAndEndTime>{
     private final HourAndMinutes startTime;
     private final HourAndMinutes endTime;
     private final String stringRepresentation;
@@ -59,5 +59,13 @@ public class StartAndEndTime {
     @Override
     public String toString() {
         return stringRepresentation;
+    }
+
+    @Override
+    public int compareTo(StartAndEndTime startAndEndTime) {
+        if ( this.startTime.compareTo(startAndEndTime.startTime) == 0 ) {
+            return this.endTime.compareTo( startAndEndTime.endTime );
+        }
+        return this.startTime.compareTo(startAndEndTime.startTime);
     }
 }

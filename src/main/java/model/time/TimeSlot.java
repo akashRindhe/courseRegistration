@@ -7,12 +7,12 @@ import java.util.Objects;
  * Entity to store DayOfWeek and Start and End times
  * of a class
  */
-public class TimeSlot {
+public class TimeSlot implements Comparable<TimeSlot>{
     private final DayOfWeek dayOfWeek;
     private final StartAndEndTime startAndEndTime;
     private final String stringRepresentation;
 
-    private TimeSlot(DayOfWeek dayOfWeek, StartAndEndTime startAndEndTime) {
+    public TimeSlot(DayOfWeek dayOfWeek, StartAndEndTime startAndEndTime) {
         this.dayOfWeek = Objects.requireNonNull(dayOfWeek);
         this.startAndEndTime = Objects.requireNonNull(startAndEndTime);
         this.stringRepresentation = this.dayOfWeek + " " + this.startAndEndTime;
@@ -38,5 +38,13 @@ public class TimeSlot {
     @Override
     public String toString() {
         return stringRepresentation;
+    }
+
+    @Override
+    public int compareTo(TimeSlot timeSlot) {
+        if ( this.dayOfWeek.compareTo( timeSlot.dayOfWeek ) == 0 ) {
+            return this.startAndEndTime.compareTo( timeSlot.startAndEndTime );
+        }
+        return Integer.compare(this.dayOfWeek.compareTo( timeSlot.dayOfWeek ), 0);
     }
 }

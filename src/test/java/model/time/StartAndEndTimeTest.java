@@ -103,4 +103,43 @@ class StartAndEndTimeTest {
         assertEquals(expectedResult, testSubject.toString());
     }
 
+    private static Stream<Arguments> compareToArguments() {
+        return Stream.of(
+                of(new HourAndMinutes(10, 30),
+                        new HourAndMinutes(13, 30 ),
+                        new HourAndMinutes(10, 31),
+                        new HourAndMinutes(13, 30 ), -1),
+                of(new HourAndMinutes(10, 30),
+                        new HourAndMinutes(13, 30 ),
+                        new HourAndMinutes(10, 29),
+                        new HourAndMinutes(13, 30 ), 1),
+                of(new HourAndMinutes(10, 30),
+                        new HourAndMinutes(13, 30 ),
+                        new HourAndMinutes(10, 30),
+                        new HourAndMinutes(13, 31 ), -1),
+                of(new HourAndMinutes(10, 30),
+                        new HourAndMinutes(13, 30 ),
+                        new HourAndMinutes(10, 30),
+                        new HourAndMinutes(13, 29 ), 1),
+                of(new HourAndMinutes(10, 30),
+                        new HourAndMinutes(13, 30 ),
+                        new HourAndMinutes(10, 30),
+                        new HourAndMinutes(13, 30 ), 0)
+        );
+    }
+
+    @ParameterizedTest
+    @MethodSource("compareToArguments")
+    void compareTo( HourAndMinutes firstStartTime, HourAndMinutes firstEndTime,
+                    HourAndMinutes secondStartTime, HourAndMinutes secondEndtime,  int expectedResult ) {
+        //Arrange
+        StartAndEndTime testSubject = new StartAndEndTime(firstStartTime,firstEndTime);
+        StartAndEndTime comparisonObject = new StartAndEndTime(secondStartTime,secondEndtime);
+
+        //Act
+        int result = testSubject.compareTo(comparisonObject);
+
+        //Assert
+        assertEquals( expectedResult, result );
+    }
 }

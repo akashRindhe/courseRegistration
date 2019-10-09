@@ -2,31 +2,30 @@ package model.course;
 
 import model.Location;
 import model.time.TimeSlot;
-import model.user.Instructor;
 
-import java.util.Set;
+import java.util.Objects;
 
 public class Class {
-    final TypeOfCourse typeOfCourse;
-    final TimeSlot timeSlot;
-    final Set<Instructor> instructors;
-    final Location location;
-    final String stringRepresentation;
+    private final TypeOfCourse typeOfCourse;
+    private final TimeSlot timeSlot;
+    private final Location location;
+    private final String stringRepresentation;
 
-    public Class( TypeOfCourse typeOfCourse, TimeSlot timeSlot, Set<Instructor> instructors, Location location) {
-        this.typeOfCourse = typeOfCourse;
-        this.timeSlot = timeSlot;
-        this.instructors = instructors;
-        this.location = location;
-        this.stringRepresentation = this.typeOfCourse + " " + this.timeSlot;
+    public Class( TypeOfCourse typeOfCourse, TimeSlot timeSlot, Location location) {
+        this.typeOfCourse = Objects.requireNonNull(typeOfCourse);
+        this.timeSlot = Objects.requireNonNull(timeSlot);
+        this.location = Objects.requireNonNull(location);
+        this.stringRepresentation = this.timeSlot + " " + this.typeOfCourse;
+    }
+
+    TimeSlot timeSlot() {
+        return this.timeSlot;
     }
 
     @Override
     public String toString() {
         return stringRepresentation;
     }
-
-
 
     public enum TypeOfCourse {
         LECTURE,

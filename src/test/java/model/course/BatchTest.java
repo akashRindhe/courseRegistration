@@ -1,7 +1,6 @@
 package model.course;
 
 import model.user.Student;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -11,7 +10,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.params.provider.Arguments.of;
 
 class BatchTest {
@@ -68,6 +67,13 @@ class BatchTest {
 
         //Act and Assert
         assertEquals(expectedResult, batch.equals(o));
+    }
+
+    private static Stream<Arguments> printableScheduleArguments() {
+        return Stream.of(
+                of( new Batch("ID1", 10, Collections.EMPTY_SET, Collections.EMPTY_SET, Collections.EMPTY_SET), true),
+                of(new Batch("ID2", 10, Collections.EMPTY_SET, Collections.EMPTY_SET, Collections.EMPTY_SET), false),
+                of(1, false));
     }
 
 }

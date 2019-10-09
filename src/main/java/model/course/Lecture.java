@@ -8,7 +8,7 @@ import java.util.Set;
 
 public class Lecture extends Class {
 
-    public Lecture(TimeSlot timeSlot, Set<Instructor> instructors, Location location) {
-        super(TypeOfCourse.LECTURE, timeSlot, instructors, location);
+    public Lecture(TimeSlot timeSlot, Location location) {
+        super(TypeOfCourse.LECTURE, timeSlot, location);
     }
 }

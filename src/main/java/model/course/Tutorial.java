@@ -7,7 +7,7 @@ import model.user.Instructor;
 import java.util.Set;
 
 public class Tutorial extends Class {
-    public Tutorial(TimeSlot timeSlot, Set<Instructor> instructors, Location location) {
-        super(TypeOfCourse.TUTORIAL, timeSlot, instructors, location);
+    public Tutorial(TimeSlot timeSlot, Location location) {
+        super(TypeOfCourse.TUTORIAL, timeSlot, location);
     }
 }

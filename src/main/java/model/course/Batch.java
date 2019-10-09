@@ -23,7 +23,7 @@ public class Batch {
         this.tutorials = Objects.requireNonNull(tutorials);
         this.registeredStudents = Objects.requireNonNull(registeredStudents);
         this.fullSchedule = new TreeSet<>(
-                Comparator.comparing(firstClass -> firstClass.timeSlot));
+                Comparator.comparing(Class::timeSlot));
         this.fullSchedule.addAll(this.lectures);
         this.fullSchedule.addAll(this.labs);
         this.fullSchedule.addAll(this.tutorials);
@@ -63,7 +63,7 @@ public class Batch {
         return this.id.hashCode();
     }
 
-    public String schedule() {
+    public String printableSchedule() {
         return this.schedule;
     }
 }

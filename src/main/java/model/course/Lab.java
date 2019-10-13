@@ -2,13 +2,10 @@ package model.course;
 
 import model.Location;
 import model.time.TimeSlot;
-import model.user.Instructor;
-
-import java.util.Set;
 
 public class Lab extends Class {
 
-    public Lab(TimeSlot timeSlot, Location location) {
-        super(TypeOfCourse.LAB, timeSlot, location);
+    public Lab(TimeSlot timeSlot) {
+        super(TypeOfCourse.LAB, timeSlot);
     }
 }

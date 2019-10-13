@@ -1,5 +1,6 @@
 package model.time;
 
+import java.sql.Time;
 import java.time.DayOfWeek;
 import java.util.Objects;
 
@@ -47,4 +48,22 @@ public class TimeSlot implements Comparable<TimeSlot>{
         }
         return Integer.compare(this.dayOfWeek.compareTo( timeSlot.dayOfWeek ), 0);
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof TimeSlot)) {
+            return false;
+        }
+        TimeSlot timeSlot = (TimeSlot)o;
+        return this.dayOfWeek.equals(timeSlot.dayOfWeek) &&
+                this.startAndEndTime.equals(timeSlot.startAndEndTime);
+    }
+
+    @Override
+    public int hashCode() {
+        int hashcode = this.dayOfWeek.hashCode()*31;
+        hashcode = (hashcode + this.startAndEndTime.hashCode()) * 31;
+        return hashcode;
+    }
+
 }

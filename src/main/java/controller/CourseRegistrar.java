@@ -1,7 +1,7 @@
 package controller;
 
-import provider.CourseProvider;
-import provider.StudentProvider;
+import provider.course.CourseProvider;
+import provider.student.StudentProvider;
 
 public class CourseRegistrar {
     private final CourseProvider courseProvider;

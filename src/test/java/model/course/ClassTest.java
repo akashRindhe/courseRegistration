@@ -1,19 +1,16 @@
 package model.course;
 
-import model.Location;
 import model.time.HourAndMinutes;
 import model.time.StartAndEndTime;
 import model.time.TimeSlot;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
-import java.sql.Time;
 import java.time.DayOfWeek;
 import java.util.stream.Stream;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.params.provider.Arguments.of;
 
 class ClassTest {
@@ -35,7 +32,7 @@ class ClassTest {
     @MethodSource("toStringArguments")
     void toString(Class.TypeOfCourse typeOfCourse, TimeSlot timeSlot, String expectedResult) {
         //Arrange
-        Class testSubject = new Class(typeOfCourse, timeSlot, new Location("ID", "LEC 1"));
+        Class testSubject = new Class(typeOfCourse, timeSlot);
 
         //Act and Assert
         assertEquals( expectedResult, testSubject.toString() );

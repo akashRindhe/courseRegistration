@@ -1,4 +1,4 @@
-package provider;
+package provider.student;
 
 public interface StudentProvider {
 }

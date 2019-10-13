@@ -43,8 +43,8 @@ public final class HourAndMinutes implements Comparable<HourAndMinutes>{
 
     @Override
     public int hashCode() {
-        int hash = this.hour * 33;
-        hash = (hash + minutes) * 33;
+        int hash = this.hour * 31;
+        hash = (hash + minutes) * 31;
         return hash;
     }
 

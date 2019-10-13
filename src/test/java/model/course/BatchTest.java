@@ -1,10 +1,14 @@
 package model.course;
 
+import model.time.HourAndMinutes;
+import model.time.StartAndEndTime;
+import model.time.TimeSlot;
 import model.user.Student;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import java.time.DayOfWeek;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
@@ -71,9 +75,27 @@ class BatchTest {
 
     private static Stream<Arguments> printableScheduleArguments() {
         return Stream.of(
-                of( new Batch("ID1", 10, Collections.EMPTY_SET, Collections.EMPTY_SET, Collections.EMPTY_SET), true),
-                of(new Batch("ID2", 10, Collections.EMPTY_SET, Collections.EMPTY_SET, Collections.EMPTY_SET), false),
-                of(1, false));
+                of( new Batch("ID1", 10,
+                        new HashSet<>(Collections.singletonList( new Lecture(new TimeSlot(DayOfWeek.WEDNESDAY,
+                                new StartAndEndTime( new HourAndMinutes( 11,30),
+                                        new HourAndMinutes(12,30)))))),
+                        new HashSet<>(Collections.singletonList( new Lab(new TimeSlot(DayOfWeek.MONDAY,
+                                new StartAndEndTime( new HourAndMinutes( 11,30),
+                                        new HourAndMinutes(12,30)))))),
+                                new HashSet<>(Collections.singletonList( new Tutorial(new TimeSlot(DayOfWeek.TUESDAY,
+                                        new StartAndEndTime( new HourAndMinutes( 11,30),
+                                                new HourAndMinutes(12,30))))))),
+                        "MONDAY 11:30 - 12:30 LAB" + "\n" +
+                                "TUESDAY 11:30 - 12:30 TUTORIAL" + "\n" +
+                                "WEDNESDAY 11:30 - 12:30 LECTURE" + "\n"
+                        ));
+    }
+
+    @ParameterizedTest
+    @MethodSource("printableScheduleArguments")
+    void printableSchedule(Batch batch, String expectedResult) {
+        //Arrange, Act and Assert
+        assertEquals( expectedResult, batch.printableSchedule() );
     }
 
 }

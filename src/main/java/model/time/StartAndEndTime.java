@@ -68,4 +68,22 @@ public class StartAndEndTime implements Comparable<StartAndEndTime>{
         }
         return this.startTime.compareTo(startAndEndTime.startTime);
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if ( !( o instanceof StartAndEndTime)) {
+            return false;
+        }
+        StartAndEndTime startAndEndTime = (StartAndEndTime)o;
+        return this.startTime.equals(startAndEndTime.startTime) &&
+                this.endTime.equals(startAndEndTime.endTime);
+    }
+
+    @Override
+    public int hashCode() {
+        int hashcode = this.startTime.hashCode() * 31;
+        hashcode = (hashcode + this.endTime.hashCode()) * 31;
+        return hashcode;
+    }
+
 }
